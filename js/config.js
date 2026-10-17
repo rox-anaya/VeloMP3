@@ -6,12 +6,12 @@
 
 window.ANVG = {
   // Your EXISTING Supabase project.
-  SUPABASE_URL: 'https://syculxnokrkluyzuempj.supabase.co',
+  SUPABASE_URL: 'https://nkdmpgobhekxrmluhunz.supabase.co',
 
   // The "publishable" key is designed to be public, like a website address.
   // It does NOT give anyone power over your data. Your security comes from the
   // Row Level Security rules in supabase/01_setup.sql.
-  SUPABASE_KEY: 'sb_publishable_uSljNgeCYIweqTOPbfvk4Q_vnDyc9fC',
+  SUPABASE_KEY: 'sb_publishable_IjURuKmS4mIuYuMT6XW6Xw_x65AEx3t',
 
   // The 12 themes. "id" must match a body.theme-<id> rule in css/theme.css.
   // "ana" is the default and has no class.
