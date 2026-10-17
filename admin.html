@@ -1,0 +1,30 @@
+<!doctype html>
+<!-- admin.html: the admin screen. The sidebar and actions depend on your position.
+     The real logic is in js/admin.js. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ANVG Admin</title>
+  <link rel="stylesheet" href="css/theme.css">
+</head>
+<body data-page="admin">
+  <header class="topbar">
+    <strong>ANVG Admin</strong>
+    <span id="who" class="muted"></span>
+    <button id="logout" class="btn ghost">Sign out</button>
+  </header>
+
+  <div class="layout">
+    <nav id="nav" class="side"></nav>
+    <main id="main" class="main"><p class="muted">Loading…</p></main>
+  </div>
+
+  <!-- Popup for add/edit forms. Hidden until used. -->
+  <div id="modal" class="modal hidden"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
