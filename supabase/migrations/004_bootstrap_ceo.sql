@@ -11,6 +11,6 @@
 -- Only the CEO row is created here. Everyone else is added in the admin Staff section.
 -- =====================================================================
 insert into staff_members (user_id, name, role_title, department, sort_order)
-values ('PASTE-AUTH-USER-UID'::uuid, 'Your Name', 'CEO', 'Executive', 10)
+values ('7bfb29e1-988a-4764-8ceb-80ddcb289d8a'::uuid, 'ravikumar', 'CEO', 'Executive', 10)
 on conflict (user_id) do update
   set name = excluded.name, role_title = 'CEO';
