@@ -18,22 +18,20 @@
 - The old v2 pages About, Apply, Ranks, Routes and Training. They were not in your list of
   sections. Say so if you want them rebuilt, and I'll follow the same pattern.
 
-## Setup, in order
-1. **Back up your data.** Supabase > Database > Backups, or export each table.
-2. **Run `supabase/01_setup.sql`** in the SQL Editor. It sets up positions, permissions,
-   and the security rules.
-3. **Run `supabase/02_home_showcase_storage.sql`**. It adds the showcase table, the
-   public `images` photo bucket, and default settings.
-4. **Create your login.** Supabase > Authentication > Users > Add user (auto confirm). Copy the UID.
-5. **Link yourself.** Run the bootstrap line at the bottom of `01_setup.sql`, with your
-   UID and your staff row id. Your staff row's position must be `CEO`.
-6. **Put the files in a GitHub repo**, keeping the folder structure.
-7. **Deploy on Vercel:** Add New Project > import the repo > Framework "Other" >
-   no build command > Deploy.
-8. **Sign in** at `/login.html`, then open Admin.
-9. **Add staff:** create each person's login (step 4), add their staff row with the matching
-   position, and paste their UID into "Login user ID".
-10. **Delete the old v2 files** from the old repo, so the old PIN admin page is gone.
+## Setup, in order (fresh Supabase project)
+1. In the new project: Authentication > Providers: keep Email on. Authentication > Sign In / Up:
+   turn OFF "Allow new users to sign up" so strangers cannot create logins.
+2. SQL Editor > New query, then run each file in order (paste, Run):
+   - `supabase/migrations/001_tables.sql`
+   - `supabase/migrations/002_security.sql`
+   - `supabase/migrations/003_storage_and_seed.sql`
+   - `supabase/migrations/004_bootstrap_ceo.sql` (after editing it, see step A-B inside)
+   - `supabase/migrations/005_verify.sql` (read-only checks)
+3. Put the website files in your GitHub repo, keeping the folder structure.
+4. Deploy on Vercel: Add New Project > import the repo > Framework "Other" > no build command > Deploy.
+5. Sign in at `/login.html`, open Admin, and add your staff: create each person's login
+   (Authentication > Users > Add user), add their staff row with the matching position,
+   and paste their UID into "Login user ID".
 
 ## Where things live
 | Need | File |
@@ -44,10 +42,9 @@
 | Admin screen (sections, forms, uploads, access) | `js/admin.js` |
 | Public page content | `js/pages/*.js` (one per page) |
 | Colors for the 12 themes and layout | `css/theme.css` |
-| Database tables and security rules | `supabase/01_…sql`, `supabase/02_…sql` |
+| Database tables, security, storage, starting data | `supabase/migrations/001`–`005` |
 
 ## Adding a new section later
 1. Add a table entry in `js/admin.js` (copy an existing one).
-2. Add its table to the list in `01_setup.sql` and re-run it.
+2. Add its table to `001_tables.sql` and its policy list to `002_security.sql`, then run a new migration file for the change.
 3. Add a page in `js/pages/` and a menu row in `js/shell.js`.
-4. 
