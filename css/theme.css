@@ -1,1 +1,154 @@
+/* =====================================================================
+   css/theme.css
+   The 12 themes (same colors as your v2 site) plus basic layout.
+   HOW THEMES WORK: each theme only changes a few CSS "variables" (--bg-primary,
+   --accent-primary, ...). The page uses those variables everywhere, so one
+   class on <body> recolors the whole site.
+   ===================================================================== */
 
+/* Default theme: ANA Triton Blue (no class needed). */
+:root {
+  --bg-primary: #001433;
+  --bg-secondary: #00266b;
+  --bg-tertiary: #020914;
+  --accent-primary: #007fc1;
+  --accent-glow: rgba(0, 127, 193, 0.35);
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.12);
+}
+
+/* The other 11 themes. The class name is body.theme-<id> (ids are in js/config.js). */
+body.theme-peach      { --bg-primary:#1f081e; --bg-secondary:#4a1248; --bg-tertiary:#120411; --accent-primary:#ec4899; --accent-glow:rgba(236,72,153,.35); }
+body.theme-nca        { --bg-primary:#0f172a; --bg-secondary:#1e293b; --bg-tertiary:#090d16; --accent-primary:#ef4444; --accent-glow:rgba(239,68,68,.35); }
+body.theme-airjapan   { --bg-primary:#071f29; --bg-secondary:#0e3b4d; --bg-tertiary:#041218; --accent-primary:#14b8a6; --accent-glow:rgba(20,184,166,.35); }
+body.theme-staralliance { --bg-primary:#0a0a0c; --bg-secondary:#17171c; --bg-tertiary:#050507; --accent-primary:#eab308; --accent-glow:rgba(234,179,8,.35); }
+body.theme-honu       { --bg-primary:#04242c; --bg-secondary:#064e5c; --bg-tertiary:#02151a; --accent-primary:#06b6d4; --accent-glow:rgba(6,182,212,.4); }
+body.theme-oled       { --bg-primary:#000000; --bg-secondary:#080c14; --bg-tertiary:#000000; --accent-primary:#38bdf8; --accent-glow:rgba(56,189,248,.35); }
+body.theme-sakura     { --bg-primary:#1a0b1c; --bg-secondary:#331436; --bg-tertiary:#0f0510; --accent-primary:#f472b6; --accent-glow:rgba(244,114,182,.35); }
+body.theme-b787hud    { --bg-primary:#07140d; --bg-secondary:#0d2619; --bg-tertiary:#030a06; --accent-primary:#10b981; --accent-glow:rgba(16,185,129,.35); }
+body.theme-airbuseis  { --bg-primary:#0b1528; --bg-secondary:#162a4a; --bg-tertiary:#060b17; --accent-primary:#00d2ff; --accent-glow:rgba(0,210,255,.35); }
+body.theme-pikachu    { --bg-primary:#0f172a; --bg-secondary:#1e293b; --bg-tertiary:#090d16; --accent-primary:#facc15; --accent-glow:rgba(250,204,21,.4); }
+body.theme-polar      { --bg-primary:#0f2942; --bg-secondary:#1b4965; --bg-tertiary:#081826; --accent-primary:#62b6cb; --accent-glow:rgba(98,182,203,.4); }
+
+/* ---------- Base layout (shared by public pages and admin) ---------- */
+body {
+  margin: 0;
+  font-family: 'Poppins', system-ui, sans-serif;
+  background: radial-gradient(circle at top, var(--bg-secondary) 0%, var(--bg-primary) 55%, var(--bg-tertiary) 100%);
+  background-attachment: fixed;
+  color: #fff;
+  min-height: 100vh;
+  transition: background .4s ease;
+}
+.hidden { display: none !important; }
+.muted { opacity: .7; font-size: 13px; }
+.err { color: #fca5a5; }
+.accent { color: var(--accent-primary); }
+
+.panel {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.btn {
+  background: var(--accent-primary); color: #fff; border: 0;
+  border-radius: 10px; padding: 8px 14px; cursor: pointer; font: inherit;
+}
+.btn.ghost { background: transparent; border: 1px solid var(--glass-border); }
+.btn.danger { background: #b91c1c; }
+input, select, textarea {
+  background: rgba(255,255,255,.08); color: #fff;
+  border: 1px solid var(--glass-border); border-radius: 8px;
+  padding: 8px; font: inherit; width: 100%; box-sizing: border-box;
+}
+select option { background: var(--bg-secondary); color: #fff; }
+label { display: block; font-size: 13px; margin-bottom: 10px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { padding: 8px; border-bottom: 1px solid var(--glass-border); text-align: left; vertical-align: top; }
+.scroll { overflow-x: auto; }
+.row-head { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 10px; }
+.row-head input { width: auto; flex: 1; min-width: 200px; }
+
+/* ---------- Admin layout ---------- */
+.topbar {
+  display: flex; gap: 12px; align-items: center; justify-content: space-between;
+  padding: 12px 16px; border-bottom: 1px solid var(--glass-border); flex-wrap: wrap;
+}
+.layout { display: grid; grid-template-columns: 210px 1fr; min-height: calc(100vh - 58px); }
+.side { display: flex; flex-direction: column; gap: 6px; padding: 12px; border-right: 1px solid var(--glass-border); }
+.side button {
+  background: transparent; color: #fff; border: 0; text-align: left;
+  padding: 8px 10px; border-radius: 8px; cursor: pointer; font: inherit;
+}
+.side button.active, .side button:hover { background: var(--glass-bg); color: var(--accent-primary); }
+.main { padding: 16px; overflow: auto; }
+.modal {
+  position: fixed; inset: 0; background: rgba(0,0,0,.6);
+  display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 100;
+}
+.modal form {
+  background: var(--bg-secondary); border: 1px solid var(--glass-border);
+  border-radius: 14px; padding: 20px; width: min(520px, 100%); max-height: 90vh; overflow: auto;
+}
+.form-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; }
+@media (max-width: 700px) {
+  .layout { grid-template-columns: 1fr; }
+  .side { flex-direction: row; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--glass-border); }
+  .side button { white-space: nowrap; }
+}
+
+/* ---------- Login page ---------- */
+.login-wrap { display: grid; place-items: center; min-height: 100vh; padding: 16px; }
+.login-card { width: min(360px, 100%); }
+
+/* ---------- Public pages ---------- */
+.site-head, .hero, .site-foot { position: relative; z-index: 2; }
+.site-head { padding: 14px 18px; border-bottom: 1px solid var(--glass-border); }
+.hero { text-align: center; padding: 80px 18px 120px; }
+.hero h1 { font-size: 2rem; margin: 0 0 12px; }
+.site-foot { text-align: center; padding: 20px; font-size: 13px; }
+.site-foot a { color: var(--accent-primary); }
+
+/* Weather canvas sits behind content and ignores clicks. */
+#anvgWeather {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 1;
+}
+
+/* Visitor control bar (theme, effect, voice) at the bottom of public pages. */
+.visitor-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+  display: flex; gap: 8px; align-items: center; justify-content: center; flex-wrap: wrap;
+  padding: 10px; background: rgba(0,0,0,.45); backdrop-filter: blur(12px);
+}
+.visitor-bar select { width: auto; }
+.visitor-bar button { white-space: nowrap; }
+
+/* ---------- Public site layout (added in build 2) ---------- */
+.site-head { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
+.site-head nav a { color: #fff; text-decoration: none; margin-left: 14px; opacity: .85; font-size: 14px; }
+.site-head nav a.active, .site-head nav a:hover { color: var(--accent-primary); opacity: 1; }
+.content { max-width: 1100px; margin: 0 auto; padding: 24px 16px 110px; position: relative; z-index: 2; }
+.content h1 { font-size: 1.8rem; margin: 0 0 6px; }
+.section-title { margin: 28px 0 12px; font-size: 1.25rem; }
+.grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+.card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
+.card img { width: 100%; height: 160px; object-fit: cover; background: rgba(0,0,0,.2); }
+.card .body { padding: 14px; }
+.card h3 { margin: 0 0 6px; font-size: 1.05rem; }
+.badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--accent-primary); color: var(--accent-primary); margin-bottom: 6px; }
+.notam { padding: 12px 16px; border-radius: 10px; margin: 14px 0; color: #fff; }
+.stat-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin: 20px 0; }
+.stat { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 14px; text-align: center; }
+.stat b { display: block; font-size: 1.4rem; color: var(--accent-primary); }
+.carousel { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--glass-border); margin: 16px 0; }
+.carousel img { width: 100%; height: 340px; object-fit: cover; display: block; }
+.carousel .cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 14px; background: rgba(0,0,0,.55); }
+.carousel .nav { position: absolute; top: 50%; transform: translateY(-50%); width: auto; }
+.carousel .prev { left: 8px; } .carousel .next { right: 8px; }
+.check { display: flex; gap: 8px; align-items: center; }
+.check input { width: auto; }
+.hero { background-size: cover; background-position: center; }
+table.roster td, table.roster th { padding: 10px 8px; }
